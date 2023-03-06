@@ -57,12 +57,34 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    //Test Arms
+    Controller.onPress(driverController.LeftTrigger, new InstantCommand(anchorJointMotor.set(.3)));
+    Controller.onPress(driverController.RightTrigger, new InstantCommand(floatingJointMotor.set(.3)));
+    //Test Drivetrain - left and right motors are run together
+    Controller.onPress(driverController.X, new InstantCommand(leftMotor1.set(.3)));
+    Controller.onPress(driverController.Y, new InstantCommand(rightMotor1.set(.3)));
+    Controller.onPress(driverController.X, new InstantCommand(leftMotor2.set(.3)));
+    Controller.onPress(driverController.Y, new InstantCommand(rightMotor2.set(.3)));
+    Controller.onPress(driverController.X, new InstantCommand(leftMotor3.set(.3)));
+    Controller.onPress(driverController.Y, new InstantCommand(rightMotor3.set(.3)));
+
+    Controller.onPress(driverController.A, new InstantCommand(leftMotor1.set(-.3)));
+    Controller.onPress(driverController.B, new InstantCommand(rightMotor1.set(-.3)));
+    Controller.onPress(driverController.A, new InstantCommand(leftMotor2.set(-.3)));
+    Controller.onPress(driverController.B, new InstantCommand(rightMotor2.set(-.3)));
+    Controller.onPress(driverController.A, new InstantCommand(leftMotor3.set(-.3)));
+    Controller.onPress(driverController.B, new InstantCommand(rightMotor3.set(-.3)));
+    //Test Rollers - using new intake subsystem
+    Controller.onPress(driverController.LeftBumper, new InstantCommand(Intake.forward()));
+    Controller.onPress(driverController.RightBumper, new InstantCommand(Intake.backward()));
+
+
 
     // Grabber
-    Controller.onPress(driverController.A, new InstantCommand(grabber::toggleDeploy));
+    // Controller.onPress(driverController.A, new InstantCommand(grabber::toggleDeploy));
 
     // // Balance
-    Controller.onPress(driverController.B, new Balance(drivetrain, gyro, 0));
+    // Controller.onPress(driverController.B, new Balance(drivetrain, gyro, 0));
 
     //slow mode
     // Controller.onHold(driverController.RightTrigger, new InstantCommand(() -> driverController.setSlowMode(Mode.SLOW)));
