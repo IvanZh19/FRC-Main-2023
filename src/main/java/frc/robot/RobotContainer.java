@@ -58,27 +58,26 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     //Test Arms
-    Controller.onPress(driverController.LeftTrigger, new InstantCommand(anchorJointMotor.set(.3)));
-    Controller.onPress(driverController.RightTrigger, new InstantCommand(floatingJointMotor.set(.3)));
-    //Test Drivetrain - left and right motors are run together
-    Controller.onPress(driverController.X, new InstantCommand(leftMotor1.set(.3)));
-    Controller.onPress(driverController.Y, new InstantCommand(rightMotor1.set(.3)));
-    Controller.onPress(driverController.X, new InstantCommand(leftMotor2.set(.3)));
-    Controller.onPress(driverController.Y, new InstantCommand(rightMotor2.set(.3)));
-    Controller.onPress(driverController.X, new InstantCommand(leftMotor3.set(.3)));
-    Controller.onPress(driverController.Y, new InstantCommand(rightMotor3.set(.3)));
+    Controller.onPress(driverController.LeftTrigger, new InstantCommand(
+      () -> {anchorJointMotor.set(.3);}, anchorJointMotor));
+    Controller.onPress(driverController.RightTrigger, new InstantCommand(
+      () -> {floatingJointMotor.set(.3);}, floatingJointMotor));
 
-    Controller.onPress(driverController.A, new InstantCommand(leftMotor1.set(-.3)));
-    Controller.onPress(driverController.B, new InstantCommand(rightMotor1.set(-.3)));
-    Controller.onPress(driverController.A, new InstantCommand(leftMotor2.set(-.3)));
-    Controller.onPress(driverController.B, new InstantCommand(rightMotor2.set(-.3)));
-    Controller.onPress(driverController.A, new InstantCommand(leftMotor3.set(-.3)));
-    Controller.onPress(driverController.B, new InstantCommand(rightMotor3.set(-.3)));
-    //Test Rollers - using new intake subsystem
-    Controller.onPress(driverController.LeftBumper, new InstantCommand(Intake.forward()));
-    Controller.onPress(driverController.RightBumper, new InstantCommand(Intake.backward()));
+    //Test Drivetrain - runs left and right halves
+    Controller.onPress(driverController.A, new InstantCommand(
+      () -> {leftMotor1.set(.3); leftMotor2.set(.3); leftMotor3.set(.3);}, leftMotor1, leftMotor2, leftMotor3));
+    Controller.onPress(driverController.B, new InstantCommand(
+      () -> {leftMotor1.set(-.3); leftMotor2.set(-.3); leftMotor3.set(-.3);}, leftMotor1, leftMotor2, leftMotor3));
+    Controller.onPress(driverController.X, new InstantCommand(
+      () -> {rightMotor1.set(.3); rightMotor2.set(.3); rightMotor3.set(.3);}, rightMotor1, rightMotor2, rightMotor3));
+    Controller.onPress(driverController.Y, new InstantCommand(
+      () -> {rightMotor1.set(-.3); rightMotor2.set(-.3); rightMotor3.set(-.3);}, rightMotor1, rightMotor2, rightMotor3));
 
-
+    //Test Intake
+    Controller.onPress(driverController.LeftBumper, new InstantCommand(
+      () -> {Intake.forward();}, Intake));
+    Controller.onPress(driverController.RightBumper, new InstantCommand(
+      () -> {Intake.backward();}, Intake));
 
     // Grabber
     // Controller.onPress(driverController.A, new InstantCommand(grabber::toggleDeploy));
